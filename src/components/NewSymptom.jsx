@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 const NewSymptom = () => {
     const initialValues = {
-        date: new Date().toLocaleString(),
         painLevelGeneral: 0,
         painLevelHead: 0,
         painLevelChest: 0,
@@ -24,16 +23,103 @@ const NewSymptom = () => {
         exercisesOptionThree: false,
         hoursOfSitting: 0
     }
+    
+
+    const [symptoms, setSymptoms] = useState([]);
     const [painState, setPainState] = useState(initialValues);
-    console.log('test', painState);
+
+    const addSymptoms = (event) => {
+        event.preventDefault()
+        const symptomsObject = {
+            date: new Date().toLocaleString(),
+            id: symptoms.length + 1,
+            content: painState,
+        }
+        setSymptoms(symptoms.concat(symptomsObject))
+        console.log('pain symptoms', symptoms)
+        //setPainState([])
+    }
+
+    const handleInputChange = (event) => {
+        //const painLevelGeneral = event.target.value;
+        const {name, value} = event.target
+        console.log(event.target.value)
+        setPainState({
+            ...painState,
+            [name]: value
+        })
+    }
+
+    console.log('pain symptoms', symptoms)
     return (
         <div className="new-symptom-container">
-        <form className="new-symptom-form">
+            <form onSubmit = {addSymptoms} className="new-symptom-form">
+                <div className="single-symptom-container">
+                    <p>painLevelGeneral</p>
+                <label>
+                    0
+                    <input
+                        type="radio"
+                        name="painLevelGeneral"
+                        value="0"
+                        onChange={handleInputChange}/>
+                </label>
+                <label>
+                    1
+                    <input
+                        type="radio"
+                        name="painLevelGeneral"
+                        value="1"
+                        onChange={handleInputChange}/>
+                </label>
+                </div>
+                <div className="single-symptom-container">
+                    <p>painLevelHead</p>
+                <label>
+                    0
+                    <input
+                        type="radio"
+                        name="painLevelHead"
+                        value="0"
+                        onChange={handleInputChange}/>
+                </label>
+                <label>
+                    1
+                    <input
+                        type="radio"
+                        name="painLevelHead"
+                        value= '1'
+                        onChange={handleInputChange}/>
+                </label>
+                </div>
+                <div className="single-symptom-container">
+                    <p>painLevelChest</p>
+                <label>
+                    0
+                    <input
+                        type="radio"
+                        name="painLevelChest"
+                        value="0"
+                        onChange={handleInputChange}/>
+                </label>
+                <label>
+                    1
+                    <input
+                        type="radio"
+                        name="painLevelChest"
+                        value= '1'
+                        onChange={handleInputChange}/>
+                </label>
+                </div>
+                <button type="submit">save</button>
+            </form>
+            <div>
+                {symptoms.map(symptom => <p key = {symptom.id}>{symptom.content.painLevelGeneral}</p> )}
+            </div>
             
-        </form>
-    </div>
+        </div>
     )
-    
+
 }
 
 export default NewSymptom
