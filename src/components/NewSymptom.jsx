@@ -36,7 +36,7 @@ const NewSymptom = () => {
             content: painState,
         }
         setSymptoms(symptoms.concat(symptomsObject))
-        console.log('pain symptoms', symptoms)
+        console.log('pain symptoms test', symptoms)
         //setPainState([])
     }
 
